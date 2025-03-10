@@ -1,6 +1,50 @@
+@import "tailwindcss";
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 20px 100px;
+}
+
+header{
+  padding: 20px;
+  border-radius: 50px;
+}
+
+main{
+  margin: 10px 0;
+  padding: 20px;
+}
+
+.title{
+  background-image: linear-gradient(rgb(190, 100, 130), rgb(160, 80, 100));
+  border-radius: 20px;
+  border: solid white 2px;
+  padding: 10px 0;
+
   text-align: center;
+  font-size: 50px;
+}
+
+.interface{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+}
+
+.interface-container{
+  position: absolute;
+  background-image: linear-gradient(rgb(255, 125, 170), rgb(255, 180, 210));
+  border-radius: 20px;
+  border: solid rgb(255, 100, 150) 2px;
+  padding: 20px 25px;
+}
+
+.to-do-list{
+  right: 0;
+  width: 69%;
+}
+
+.notes{
+  left: 0;
+  width: 30%;
 }
