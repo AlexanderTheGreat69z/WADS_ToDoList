@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+.note{
+    position: relative;
+    background-color: rgb(252, 252, 162);
+    width: 95%;
+    min-height: 13em;
+
+    color: black;
+    font-size: 20px;
+
+    padding: 15px;
+    box-shadow: 10px 10px rgba(128, 128, 128, 0.5);
+}
+
+.note button{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    opacity: 50%;
+
+    background-color: rgb(182, 186, 52);
+    color: white;
+
+    padding: 3px 10px;
+    border-radius: 5%;
+    transition: all 0.1s;
+}
+
+.note button:hover{
+    opacity: 100%;
+    transform: scale(1.05);
+}

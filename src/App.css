@@ -1,16 +1,11 @@
 @import "tailwindcss";
 
 #root {
-  margin: 20px 100px;
+  margin: 20px;
 }
 
-header{
-  padding: 20px;
-  border-radius: 50px;
-}
-
-main{
-  margin: 10px 0;
+header, main, footer{
+  margin: 10px;
   padding: 20px;
 }
 
@@ -25,26 +20,45 @@ main{
 }
 
 .interface{
-  position: relative;
-  display: flex;
+  grid-template-areas: "todo note";
   flex-direction: row;
   margin: 20px 0;
 }
 
 .interface-container{
-  position: absolute;
   background-image: linear-gradient(rgb(255, 125, 170), rgb(255, 180, 210));
   border-radius: 20px;
   border: solid rgb(255, 100, 150) 2px;
   padding: 20px 25px;
 }
 
-.to-do-list{
-  right: 0;
-  width: 69%;
+.to-do, .notes{
+  padding: 0 0px;
+  height: 600px;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
 }
 
-.notes{
-  left: 0;
-  width: 30%;
+.to-do > *, .notes > *{
+  margin: 10px auto;
+}
+
+.to-do::-webkit-scrollbar, .notes::-webkit-scrollbar{
+  width: 0.5em;
+}
+
+.to-do::-webkit-scrollbar-track, .notes::-webkit-scrollbar-track{
+  border-radius: 50px;
+  background-color: rgb(250, 220, 230, 0.5);
+}
+
+.to-do::-webkit-scrollbar-thumb, .notes::-webkit-scrollbar-thumb{
+  border-radius: 50px;
+  background-color: white;
+}
+
+.quote p{
+  text-shadow: 2px 2px 15px black;
+  text-align: center;
+  font-size: 20px;
 }

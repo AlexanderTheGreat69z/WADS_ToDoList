@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AddButton = (props) => {
     return (
-        <button className={styles.button}>
-            <h1 className='text-9xl font-extrabold'>+</h1>
+        <button className={styles.button} onClick={props.onclick}>
+            <h1 className='text-4xl px-3 py-1 mx-auto mb-1 font-extrabold'>+</h1>
             <p className='font-extrabold'>{props.text}</p>
         </button>
     )
