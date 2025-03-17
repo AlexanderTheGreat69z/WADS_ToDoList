@@ -13,16 +13,21 @@
     box-shadow: 10px 10px rgba(128, 128, 128, 0.5);
 }
 
-.note button{
+.buttons{
     position: absolute;
     bottom: 5px;
-    right: 5px;
+    right: 0px;
+}
+
+.buttons button{
     opacity: 50%;
 
     background-color: rgb(182, 186, 52);
     color: white;
 
     padding: 3px 10px;
+    margin: 0 5px;
+
     border-radius: 5%;
     transition: all 0.1s;
 }

@@ -4,13 +4,13 @@ import styles from './ToDo.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-const ToDo = (props) => {
+const ToDo = ({ todo, onCheck }) => {
     return (
         <div className={styles.todo}>
             <h1 className='w-[90%] text-3xl'>
-                <b>- {props.todo}</b>
+                <b>- {todo}</b>
             </h1>
-            <button><b><FontAwesomeIcon icon={ faCheck } /></b></button>
+            <button onClick={onCheck}><b><FontAwesomeIcon icon={ faCheck } /></b></button>
         </div>
     )
 }

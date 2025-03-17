@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from 'firebase/firestore'
+import { doc, collection, onSnapshot, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { useState, useEffect } from "react"
 import { AnimatePresence } from 'framer-motion'
 
@@ -9,6 +9,8 @@ import Logo from './components/Logo.jsx'
 import AddButton from './components/AddButton.jsx'
 import ToDo from './components/ToDo.jsx'
 import Note from './components/Note.jsx'
+import AddNoteModal from './modals/AddNoteModal.jsx'
+import AddTodoModal from './modals/AddTodoModal.jsx'
 
 import './App.css'
 
@@ -18,9 +20,11 @@ function App() {
   useEffect(() => {getQA()}, [])
 
   const [toDoList, setToDo] = useState([])
+  const [showAddTodoModal, setShowATM] = useState(false)
   useEffect(() => getData("to-do", setToDo), []);
 
   const [noteList, setNote] = useState([])
+  const [showAddNoteModal, setShowANM] = useState(false)
   useEffect(() => getData("notes", setNote), []);
 
 
@@ -42,6 +46,42 @@ function App() {
     }
   }
 
+  const updateData = async (docID) => {
+    const docRef = doc(db, "users", docID);
+    await updateDoc(docRef, {
+      age: 30
+    });
+    console.log("Document updated!");
+  }
+
+  const addToDo = async (e) => {
+    e.preventDefault()
+    const form = e.target
+    const task = form.task.value
+    const docRef = await addDoc(collection(db, "to-do"), {
+      task: task,
+      completed: false,
+    })
+    setToDo([...toDoList, {id: docRef.id, task: docRef.task, completed: docRef.completed}])
+    setShowATM(false)
+  }
+
+  const addNote = async (e) => {
+    e.preventDefault()
+    const form = e.target
+    const content = form.content.value
+    const docRef = await addDoc(collection(db, "notes"), {
+      content: content,
+    })
+    setNote([...noteList, {id: docRef.id, content: docRef.content}])
+    setShowANM(false)
+  }
+
+  const deleteData = async (col, docId) => {
+    await deleteDoc(doc(db, col, docId));
+    console.log("Document deleted!");
+  };
+
   return (
     <>
       <header>
@@ -55,17 +95,15 @@ function App() {
           <div className='interface-container w-[30%] mr-2 flex-auto'>
               <h1 className='font-extrabold text-3xl pb-2 mb-4 border-b-2 border-white'>Notes:</h1>
               <div className='notes'>
-                <AnimatePresence>
-                  {noteList.map((note, index) => <Note key={index} content={note.content} />)}
-                </AnimatePresence>
-                <AddButton text="Add some notes too!" onclick = {() => {setNote(noteList.concat("Notes to remember:"))}}/>
+                {noteList.map((note, index) => <Note key={index} content={note.content} ontrash={() => deleteData("notes", note.id)} />)}
+                <AddButton text="Add some notes too!" onclick = {() => {setShowANM(true)}}/>
               </div>
           </div>
           <div className='interface-container w-[60%] ml-2 flex-auto'>
             <h1 className='font-extrabold text-3xl pb-2 mb-4 border-b-2 border-white'>To-do:</h1>
             <div className='to-do'>
-              {toDoList.map((todo, i) => <ToDo key={i} todo={todo.task}></ToDo>)}
-              <AddButton text="Add something to do!" onclick={() => {setToDo(toDoList.concat("Do something"))}}/>
+              {toDoList.map((todo, i) => <ToDo key={i} todo={todo.task} onCheck={() => deleteData("to-do", todo.id)}></ToDo>)}
+              <AddButton text="Add something to do!" onclick={() => {setShowATM(true)}}/>
             </div>
           </div>
         </section>
@@ -73,6 +111,9 @@ function App() {
           <p><b><i>"{qa.quote}"</i> <br></br>- {qa.author}</b></p>
         </section>
       </main>
+
+      <AddNoteModal isOpen={showAddNoteModal} onClose={() => setShowANM(false)} onSubmit={addNote} />
+      <AddTodoModal isOpen={showAddTodoModal} onClose={() => setShowATM(false)} onSubmit={addToDo} />
     </>
   )
 }
