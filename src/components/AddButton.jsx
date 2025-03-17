@@ -1,12 +1,13 @@
 import React from 'react'
 import styles from './AddButton.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const AddButton = (props) => {
+const AddButton = ({text, onclick}) => {
     return (
-        <button className={styles.button} onClick={props.onclick}>
-            <h1 className='text-4xl px-3 py-1 mx-auto mb-1 font-extrabold'>+</h1>
-            <p className='font-extrabold'>{props.text}</p>
+        <button className={styles.button} onClick={onclick}>
+            <h1><FontAwesomeIcon icon={faPlus} /></h1>
+            <p className='font-extrabold'>{text}</p>
         </button>
     )
 }
